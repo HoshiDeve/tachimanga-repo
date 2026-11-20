@@ -8,16 +8,43 @@
   "extensionList": {
     "extensions": [
       {
+        "name": "MangaDex",
+        "packageName": "eu.kanade.tachiyomi.extension.all.repomangadex",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/apk/tachiyomi-all.repomangadex-v1.6.6.apk",
+          "iconUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/icon/eu.kanade.tachiyomi.extension.all.repomangadex.png",
+          "jarUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/jar/tachiyomi-all.repomangadex-v1.6.6.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "106006",
+        "versionName": "1.6.6",
+        "contentWarning": "CONTENT_WARNING_MIXED",
+        "sources": [
+          {
+            "id": "2499283573021220255",
+            "name": "MangaDex",
+            "language": "en",
+            "homeUrl": "https://mangadex.org"
+          },
+          {
+            "id": "1952071260038453057",
+            "name": "MangaDex",
+            "language": "it",
+            "homeUrl": "https://mangadex.org"
+          }
+        ]
+      },
+      {
         "name": "Mangaworld",
         "packageName": "eu.kanade.tachiyomi.extension.it.repomangaworld",
         "resources": {
-          "apkUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/apk/tachiyomi-it.repomangaworld-v1.6.3.apk",
+          "apkUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/apk/tachiyomi-it.repomangaworld-v1.6.4.apk",
           "iconUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/icon/eu.kanade.tachiyomi.extension.it.repomangaworld.png",
-          "jarUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/jar/tachiyomi-it.repomangaworld-v1.6.3.jar"
+          "jarUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/jar/tachiyomi-it.repomangaworld-v1.6.4.jar"
         },
         "extensionLib": "1.6",
-        "versionCode": "106003",
-        "versionName": "1.6.3",
+        "versionCode": "106004",
+        "versionName": "1.6.4",
         "contentWarning": "CONTENT_WARNING_SAFE",
         "sources": [
           {
