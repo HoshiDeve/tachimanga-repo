@@ -26,5 +26,5 @@
 #  impostazioni dell'estensione ("Custom base URL"), senza toccare qui.
 # ============================================================
 
-Mangaworld | https://www.mangaworld.mx | ext:it/mangaworld
+Mangaworld | https://www.mangaworld.me | ext:it/mangaworld
 MangaDex |  | ext:all/mangadex | en, it
