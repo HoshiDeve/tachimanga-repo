@@ -13,6 +13,9 @@
 #             Oppure  ext:it/mangaworld  per prendere un'estensione già
 #             esistente di keiyoushi e metterci il TUO dominio.
 #  - lingua   facoltativo, di default "it"  (en, es, all, ...)
+#             Per siti con tante lingue (es. MangaDex) puoi elencarne
+#             più di una separate da virgola: en, it
+#             Il dominio vuoto con ext: = tieni quello originale.
 #  - 18+      facoltativo, scrivi "si" se il sito è per adulti
 #
 #  Le righe che iniziano con # vengono ignorate.
@@ -24,3 +27,4 @@
 # ============================================================
 
 Mangaworld | https://www.mangaworld.mx | ext:it/mangaworld
+MangaDex |  | ext:all/mangadex | en, it

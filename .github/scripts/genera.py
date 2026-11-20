@@ -109,7 +109,7 @@ def crea_da_tema(nome, dominio, tema, lingua, nsfw):
     return f":src:{lingua}:{slug}"
 
 
-def crea_da_ext(nome, dominio, rif, nsfw_forzato):
+def crea_da_ext(nome, dominio, rif, nsfw_forzato, lingue_scelte):
     lingua, _, cartella = rif.partition("/")
     if not lingua or not cartella:
         raise ValueError(f"'ext:{rif}' non valido, usa il formato ext:lingua/nome (es. ext:it/mangaworld)")
@@ -131,6 +131,12 @@ def crea_da_ext(nome, dominio, rif, nsfw_forzato):
             testo, n = re.subn(r"baseUrl\s*\{(?:[^{}]|\{[^{}]*\})*\}", nuovo, testo, count=1)
         if n == 0:
             raise ValueError(f"non trovo baseUrl in src/{lingua}/{cartella}/build.gradle.kts")
+    if lingue_scelte:
+        # estensioni multilingua (es. MangaDex): tiene solo le lingue scritte in siti.txt
+        lista = ", ".join(f'"{x}"' for x in lingue_scelte)
+        testo, n = re.subn(r"listOf\([^)]*\)(\s*\.forEach)", rf"listOf({lista})\1", testo, count=1)
+        if n == 0:
+            print(f"  (src/{lingua}/{cartella} non ha più lingue: ignoro '{', '.join(lingue_scelte)}')")
     kts.write_text(testo, encoding="utf-8")
     return f":src:{lingua}:{cartella}"
 
@@ -143,7 +149,11 @@ for numero, riga in enumerate(SITI.read_text(encoding="utf-8").splitlines(), 1):
     campi += [""] * (5 - len(campi))
     nome, dominio, tema, lingua, adulti = campi[:5]
     tema = (tema or "auto").lower()
-    lingua = (lingua or "it").lower()
+    lingue_scelte = [x.strip() for x in lingua.split(",") if x.strip()]
+    if any(not re.match(r"^[A-Za-z0-9-]+$", x) for x in lingue_scelte):
+        errori.append(f"riga {numero} ({nome}): lingua non valida: {lingua!r}")
+        continue
+    lingua = (lingue_scelte[0] if lingue_scelte else "it").lower()
     nsfw = adulti.lower() in ("si", "sì", "yes", "18+", "x", "1", "true")
     dominio = dominio.rstrip("/")
     print(f"riga {numero}: {nome} -> {dominio} [{tema}]")
@@ -155,7 +165,7 @@ for numero, riga in enumerate(SITI.read_text(encoding="utf-8").splitlines(), 1):
         if dominio and not re.match(r"^https?://[^\s\"$]+$", dominio):
             raise ValueError(f"dominio non valido: {dominio!r} (deve iniziare con https://)")
         if tema.startswith("ext:"):
-            moduli.append(crea_da_ext(nome, dominio, tema[4:], nsfw))
+            moduli.append(crea_da_ext(nome, dominio, tema[4:], nsfw, lingue_scelte))
         else:
             if not dominio:
                 raise ValueError("manca il dominio")
