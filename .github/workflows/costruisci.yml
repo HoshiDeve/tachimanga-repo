@@ -30,6 +30,10 @@ jobs:
           git clone --depth 1 --filter=blob:none --sparse https://github.com/keiyoushi/extensions-source.git k
           git -C k sparse-checkout set --no-cone '/*' '!/src/*'
 
+      - name: Applica le mie correzioni (cartella override/)
+        run: |
+          if [ -d main/override ]; then cp -rv main/override/. k/; fi
+
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"

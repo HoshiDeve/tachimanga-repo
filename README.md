@@ -39,3 +39,9 @@ Ad ogni modifica di `siti.txt`, GitHub Actions scarica i temi aggiornati da keiy
 un'estensione per ogni riga, la firma con la chiave della repo (salvata nei *Secrets*) e pubblica
 tutto sul ramo `repo`. Le estensioni hanno un pacchetto diverso da quelle di keiyoushi, quindi
 puoi tenere installate entrambe le repo (se però dai a un sito lo stesso nome che ha su keiyoushi, installalo da una sola delle due).
+
+## Correzioni ai temi (`override/`)
+
+I file dentro `override/` sostituiscono quelli di keiyoushi prima della compilazione.
+Ora c'è `override/lib-multisrc/mangaworld/`: il tema MangaWorld aggiornato alla nuova grafica
+del sito (novembre 2026), perché la versione di keiyoushi non trova più nulla.
