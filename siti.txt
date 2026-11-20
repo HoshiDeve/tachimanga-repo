@@ -28,3 +28,4 @@
 
 Mangaworld | https://www.mangaworld.me | ext:it/mangaworld
 MangaDex |  | ext:all/mangadex | en, it
+MANGA Plus |  | ext:all/mangaplus | en
