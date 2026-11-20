@@ -1,0 +1,80 @@
+name: Costruisci repo
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - siti.txt
+      - .github/**
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: costruisci
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Scarica questa repo
+        uses: actions/checkout@v4
+        with:
+          path: main
+
+      - name: Scarica il sorgente keiyoushi (temi e strumenti)
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/keiyoushi/extensions-source.git k
+          git -C k sparse-checkout set --no-cone '/*' '!/src/*'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Crea le estensioni da siti.txt
+        run: python main/.github/scripts/genera.py main/siti.txt k "${{ github.run_number }}"
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: 25
+          distribution: temurin
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Compila
+        env:
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          KEY_STORE_PASSWORD: ${{ secrets.KEY_STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          ALIAS: ${{ secrets.ALIAS }}
+        run: |
+          cd k
+          echo "$SIGNING_KEY" | base64 -d > signingkey.jks
+          TASKS=$(sed '/^$/d; s/$/:assembleRelease/' moduli.txt)
+          ./gradlew $TASKS --no-daemon
+          keytool -exportcert -keystore signingkey.jks -storepass "$KEY_STORE_PASSWORD" -alias "$ALIAS" \
+            | sha256sum | cut -d' ' -f1 > ../fingerprint.txt
+          rm signingkey.jks
+          echo "Fingerprint: $(cat ../fingerprint.txt)"
+
+      - name: Pubblica sul ramo "repo"
+        env:
+          TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          URL="https://x-access-token:${TOKEN}@github.com/${REPO}.git"
+          if ! git clone --depth 1 --branch repo "$URL" out; then
+            mkdir out && git -C out init -b repo && git -C out remote add origin "$URL"
+          fi
+          pip install --quiet protobuf
+          python main/.github/scripts/pubblica.py k out "$(cat fingerprint.txt)" "$REPO"
+          cd out
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then echo "Nessuna modifica"; exit 0; fi
+          git commit -m "Aggiorna repo (${GITHUB_SHA::7})"
+          git push origin repo

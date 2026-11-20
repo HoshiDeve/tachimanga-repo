@@ -1,0 +1,26 @@
+# ============================================================
+#  I MIEI SITI  —  una riga per sito
+# ============================================================
+#
+#  Formato:   nome | dominio | tema | lingua | 18+
+#
+#  - nome     come vuoi che appaia in Tachimanga
+#  - dominio  l'indirizzo del sito (con https://)
+#  - tema     il "motore" del sito. Lascia "auto" se non lo sai:
+#             la repo prova a riconoscerlo da sola (Madara / MangaThemesia).
+#             Altri temi: pizzareader, foolslide, mangareader, zeistmanga,
+#             heancms, keyoapp, wpcomics, ... (vedi README)
+#             Oppure  ext:it/mangaworld  per prendere un'estensione già
+#             esistente di keiyoushi e metterci il TUO dominio.
+#  - lingua   facoltativo, di default "it"  (en, es, all, ...)
+#  - 18+      facoltativo, scrivi "si" se il sito è per adulti
+#
+#  Le righe che iniziano con # vengono ignorate.
+#  Dopo che salvi questo file, GitHub ricostruisce la repo da solo
+#  (2-5 minuti) e Tachimanga ti mostrerà l'aggiornamento.
+#
+#  Il dominio puoi cambiarlo anche dentro Tachimanga, nelle
+#  impostazioni dell'estensione ("Custom base URL"), senza toccare qui.
+# ============================================================
+
+Mangaworld | https://www.mangaworld.mx | ext:it/mangaworld
