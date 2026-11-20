@@ -1,0 +1,33 @@
+{
+  "name": "La mia repo",
+  "badgeLabel": "MIA",
+  "signingKey": "422c8e02735476df2d1fbbcaa3fa3932c5e46580587ec8bd5344dbf644c884f0",
+  "contact": {
+    "website": "https://github.com/HoshiDeve/tachimanga-repo"
+  },
+  "extensionList": {
+    "extensions": [
+      {
+        "name": "Mangaworld",
+        "packageName": "eu.kanade.tachiyomi.extension.it.repomangaworld",
+        "resources": {
+          "apkUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/apk/tachiyomi-it.repomangaworld-v1.6.3.apk",
+          "iconUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/icon/eu.kanade.tachiyomi.extension.it.repomangaworld.png",
+          "jarUrl": "https://raw.githubusercontent.com/HoshiDeve/tachimanga-repo/repo/jar/tachiyomi-it.repomangaworld-v1.6.3.jar"
+        },
+        "extensionLib": "1.6",
+        "versionCode": "106003",
+        "versionName": "1.6.3",
+        "contentWarning": "CONTENT_WARNING_SAFE",
+        "sources": [
+          {
+            "id": "7114846210461894145",
+            "name": "Mangaworld",
+            "language": "it",
+            "homeUrl": "https://www.mangaworld.mx"
+          }
+        ]
+      }
+    ]
+  }
+}
